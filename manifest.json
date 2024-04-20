@@ -1,0 +1,41 @@
+{
+    "manifest_version": 3,
+    "name": "Control for Reddit",
+    "version": "1.0",
+    "description": "Lets you take control of your time by limiting reddit features",
+    "permissions": [
+      "storage"
+    ],
+    "host_permissions": ["*://*.reddit.com/*"],
+  
+    "icons": {
+      "48": "icons/control_simple.png"
+    },
+  
+    "options_ui" : {
+      "page": "options.html",
+      "open_in_tab": true
+    },
+  
+    "action": {
+      "default_popup": "popup.html"
+    },
+  
+    "content_scripts": [{
+        "matches": ["*://*.reddit.com/*"],
+        "js": ["js/control.js"],
+        "run_at": "document_start",
+        "css": ["css/reddit/not_logged_in.css"]
+    }],
+  
+    "web_accessible_resources": [{ 
+      "resources": [
+        "css/reddit/leftsidebar.css",
+        "css/reddit/main_page.css",
+        "css/reddit/notifications.css",
+        "css/reddit/subreddits.css",
+        "css/reddit/trending.css"
+      ],
+      "matches": ["*://*.reddit.com/*"]
+    }]
+  }
