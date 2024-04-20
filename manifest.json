@@ -24,8 +24,7 @@
     "content_scripts": [{
         "matches": ["*://*.reddit.com/*"],
         "js": ["js/control.js"],
-        "run_at": "document_start",
-        "css": ["css/reddit/not_logged_in.css"]
+        "run_at": "document_start"
     }],
   
     "web_accessible_resources": [{ 
