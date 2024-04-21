@@ -50,8 +50,7 @@ const sheets = [
         ["leftsidebar"]),
     new Sheet("trending", [], [], []),
     new Sheet("notifications", [], [], [])
-]; // for future use: new RegExp("^.*://.*\\.reddit\\.com/.*$") = all pages
-// add reddit/search
+];
 
 initialize();
 
