@@ -1,0 +1,4 @@
+Add "more options" page on extension page and link in popup
+Add whitelist/blacklist and relevant descriptions
+Remove hrefs 
+Add react compatibility, clean up code
