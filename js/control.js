@@ -93,12 +93,12 @@ function initialize() {
             console.log(sheet.name);
             if (!data[index]) {
                 if (sheet.name == "grayscale") {
-                    document.body.style.filter = 'grayscale(0%)';
+                    document.documentElement.style.filter = 'grayscale(0%)';
                 } else {
                     sheet.reAddLinks();
                 }
             } else if (sheet.name == "grayscale") {
-                document.body.style.filter = 'grayscale(100%)';
+                document.documentElement.style.filter = 'grayscale(100%)';
             } else if (sheet.appliesTo(currentUrl)) {
                 sheet.blockAssigned(); 
                 sheet.blockLinks();
