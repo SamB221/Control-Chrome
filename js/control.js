@@ -21,9 +21,8 @@ class Sheet {
     }
 
     blockAssigned() {
-        if (this.name == "trending") {
-            const element = document.querySelector(".masthead");
-            if (element!= null) element.remove();
+        if (this.name == "sidebar") {
+            removeLeftSidebar();
         } else {
             // blocks main content on given page
             let elements = document.querySelectorAll('main[class]');
@@ -67,7 +66,9 @@ const sheets = [
         [new RegExp("^.*://.*\\.reddit\\.com/r/all.*$"),
         new RegExp("^.*://.*\\.reddit\\.com/r/popular.*$"),
         new RegExp("^.*://.*\\.reddit\\.com.$")], 
-        [new RegExp("^.*://.*\\.reddit\\.com/r.*$")],
+        [new RegExp("^.*://.*\\.reddit\\.com/r.*$"),
+        new RegExp("^.*://.*\\.reddit.com/settings/*"),
+        new RegExp("^.*://.*\\.reddit.com/submit*")],
         ["/?feed=home"]),
     new Sheet("subreddits", 
         [],
@@ -76,9 +77,11 @@ const sheets = [
         new RegExp("^.*://.*\\.reddit\\.com/r/popular.*$"),
         new RegExp("^.*://.*\\.reddit\\.com.$"),
         new RegExp("^.*://.*\\.reddit\\.com/\\?.*$"),
-        new RegExp("^.*://.*\\.reddit\\.com/user/.*$")],
+        new RegExp("^.*://.*\\.reddit\\.com/user/.*$"),
+        new RegExp("^.*://.*\\.reddit.com/settings/*"),
+        new RegExp("^.*://.*\\.reddit.com/submit*")],
         ["recent_menu", "communities_menu"]),
-    new Sheet("trending", [new RegExp("^.*://.*\\.reddit\\.com.*")], [], []),
+    new Sheet("sidebar", [new RegExp("^.*://.*\\.reddit\\.com.*")], [], []),
     new Sheet("notifications", [], [], ["inbox"]),
     new Sheet("grayscale", [], [], [])
 ];
@@ -94,7 +97,7 @@ function initialize() {
             if (!data[index]) {
                 if (sheet.name == "grayscale") {
                     document.documentElement.style.filter = 'grayscale(0%)';
-                } else {
+                } else if (sheet.name == "notifications") {
                     sheet.reAddLinks();
                 }
             } else if (sheet.name == "grayscale") {
@@ -124,7 +127,7 @@ function removeLinks(elementName) {
     const elementsWithoutHref = document.querySelectorAll('[data-part="'+elementName+'"]');
 
     elementsWithoutHref.forEach(element => {
-        element.style.display = "none";
+        element.style.visibility = "hidden";
         element.style.pointerEvents = 'none';
     });
 }
@@ -133,9 +136,20 @@ function addLinks(elementName) {
     const elementsWithoutHref = document.querySelectorAll('[data-part="'+elementName+'"]');
 
     elementsWithoutHref.forEach(element => {
-        element.style.display = "initial";
+        element.style.visibility = "visable";
         element.style.pointerEvents = 'auto';
     });
+}
+
+function removeLeftSidebar() {
+    const masthead = document.querySelector(".masthead");
+    if (masthead != null) masthead.remove();
+    const sidebar = document.getElementById("left-sidebar");
+    if (sidebar != null) sidebar.remove();
+    const container = document.getElementById("left-sidebar-container");
+    if (container != null) container.remove();
+    //const recents = document.querySelector("recent-posts");
+    //if (recents != null) recents.remove();
 }
 
 // reloads upon message from extension's popup
